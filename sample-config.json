@@ -11,7 +11,8 @@
       "platform" : "Nubicam",
       "name" : "Nubicam",
       "username" : "username@test.com",
-      "password" : "123456"
+      "password" : "123456",
+      "motionThreshold" : 0.3
     }
   ]
 }

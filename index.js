@@ -1,11 +1,10 @@
-let Accessory, hap, UUIDGen;
+let Accessory, hap;
 let ubiguardAPI = require('./lib/ubiguard');
-let FFMPEG = require('./lib/FFMPEG').FFMPEG;
+let CameraAccessory = require('./lib/Camera').Camera;
 
 module.exports = function (homebridge) {
     Accessory = homebridge.platformAccessory;
     hap = homebridge.hap;
-    UUIDGen = homebridge.hap.uuid;
 
     homebridge.registerPlatform("homebridge-nubicam", "Nubicam", nubicam, true);
 };
@@ -16,21 +15,22 @@ const nubicam = function (log, config, api) {
 
     this.nubicamUsername = config.username;
     this.nubicamPassword = config.password;
+    this.motionThreshold = config.motionThreshold || 0.3;
+    this.cameraAccessories = [];
 
     if (!api || api.version < 2.1) {
         throw new Error('Unexpected API version.')
     }
+
     api.on('didFinishLaunching', this.didFinishLaunching.bind(this))
 };
 
 nubicam.prototype = {
     configureAccessory(accessory) {
-
+        this.log("configureAccessory() invoked! %s", accessory);
     },
 
     didFinishLaunching() {
-        this.log("Finish launch");
-
         let platform = this;
 
         let user = new ubiguardAPI.User(this.nubicamUsername, this.nubicamPassword);
@@ -39,41 +39,17 @@ nubicam.prototype = {
             .then(() => {
                 platform.log.debug("Nubicam User ID = %s", user.userId);
 
-                let cameraAccessories = [];
-
                 user.getCameras()
                     .then((cameras) => {
+                        platform.log("Found %s cameras", cameras.length);
+
                         cameras.forEach(camera => {
-                            let nubicamCamera = new ubiguardAPI.Camera(user, camera.cameraid);
-
-                            platform.log(camera);
-
-                            nubicamCamera.getCameraFeed()
-                                .then((feed) => {
-                                    platform.log(feed);
-
-                                    let cameraAccessory = new Accessory(camera.friendlyname, UUIDGen.generate(camera.friendlyname), hap.Accessory.Categories.CAMERA);
-
-                                    /*cameraAccessory
-                                        .getService(Service.AccessoryInformation)
-                                        .setCharacteristic(Characteristic.Name, camera.friendlyname)
-                                        .setCharacteristic(Characteristic.Manufacturer, "Nubicam")
-                                        .setCharacteristic(Characteristic.Model, "Default-Model")
-                                        .setCharacteristic(Characteristic.SerialNumber, "Default-SerialNumber");*/
-
-                                    platform.log(cameraAccessory.services);
-                                    platform.log(cameraAccessory.services[0].name);
-                                    platform.log(cameraAccessory.services[0].characteristics);
-
-                                    cameraAccessory.configureCameraSource(new FFMPEG(hap, feed, platform.log));
-
-                                    cameraAccessories.push(cameraAccessory);
-                                }).catch(reason => platform.log.error(reason));
+                            platform.cameraAccessories.push(new CameraAccessory(new ubiguardAPI.Camera(user, camera), platform.log, Accessory, hap, platform.motionThreshold).getAccessory());
                         });
 
-                        platform.api.publishCameraAccessories("Nubicam", cameraAccessories)
+                        platform.api.publishCameraAccessories("Nubicam", platform.cameraAccessories);
+                        platform.log("DONE TOO!");
                     }).catch(reason => platform.log.error(reason));
-            })
-            .catch(reason => platform.log.error(reason));
+            }).catch(reason => platform.log.error(reason));
     }
 };
