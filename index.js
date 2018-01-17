@@ -1,6 +1,7 @@
 let Accessory, hap;
 let ubiguardAPI = require('./lib/ubiguard');
 let CameraAccessory = require('./lib/Camera').Camera;
+let WaitUntil = require('wait-until');
 
 module.exports = function (homebridge) {
     Accessory = homebridge.platformAccessory;
@@ -15,7 +16,6 @@ const nubicam = function (log, config, api) {
 
     this.nubicamUsername = config.username;
     this.nubicamPassword = config.password;
-    this.motionThreshold = config.motionThreshold || 0.3;
     this.cameraAccessories = [];
 
     if (!api || api.version < 2.1) {
@@ -44,11 +44,22 @@ nubicam.prototype = {
                         platform.log("Found %s cameras", cameras.length);
 
                         cameras.forEach(camera => {
-                            platform.cameraAccessories.push(new CameraAccessory(new ubiguardAPI.Camera(user, camera), platform.log, Accessory, hap, platform.motionThreshold).getAccessory());
+                            platform.cameraAccessories.push(new CameraAccessory(new ubiguardAPI.Camera(user, camera), platform.log, Accessory, hap));
                         });
 
-                        platform.api.publishCameraAccessories("Nubicam", platform.cameraAccessories);
-                        platform.log("DONE TOO!");
+                        WaitUntil()
+                            .interval(500)
+                            .times(20)
+                            .condition(function () {
+                                return platform.cameraAccessories.every(camera => camera.isInitialized);
+                            })
+                            .done((allCamerasInitialized) => {
+                                if (!allCamerasInitialized) {
+                                    platform.log.warn("Some cameras are not fully initialized");
+                                }
+
+                                platform.api.publishCameraAccessories("Nubicam", platform.cameraAccessories.map(camera => camera.getAccessory()));
+                            });
                     }).catch(reason => platform.log.error(reason));
             }).catch(reason => platform.log.error(reason));
     }
