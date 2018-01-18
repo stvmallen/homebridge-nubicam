@@ -1,7 +1,7 @@
 # homebridge-nubicam
 homebridge-plugin for Nubicam (www.nubicam.com.ar)
 
-[![npm version](https://badge.fury.io/js/homebridge-nubicam.svg)](https://badge.fury.io/js/homebridge-roomba-stv)
+[![npm version](https://badge.fury.io/js/homebridge-nubicam.svg)](https://badge.fury.io/js/homebridge-nubicam)
 [![dependencies Status](https://david-dm.org/esteban-mallen/homebridge-nubicam/status.svg)](https://david-dm.org/esteban-mallen/homebridge-nubicam)
 
 ### Credits:
