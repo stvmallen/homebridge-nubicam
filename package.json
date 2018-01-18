@@ -22,8 +22,9 @@
   "dependencies": {
     "request": "^2.83.0",
     "ip": "^1.1.3",
-    "node-hikvision-api": "file:../node-hikvision-api",
-    "wait-until": "^0.0.2"
+    "wait-until": "^0.0.2",
+    "xml2js": "^0.4.16",
+    "net-keepalive": "^0.3.3"
   },
   "devDependencies": {
     "homebridge": ">=0.4.33"
