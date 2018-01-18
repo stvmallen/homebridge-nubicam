@@ -18,7 +18,7 @@ homebridge-plugin for Nubicam (www.nubicam.com.ar)
 
 ## Installation:
 
-### 1. Install homebridge and Roomba plugin.
+### 1. Install homebridge and Nubicam plugin.
 - 1.1 `npm install -g homebridge`
 - 1.2 `npm install -g homebridge-nubicam`
 
