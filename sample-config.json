@@ -1,0 +1,17 @@
+{
+  "bridge": {
+    "name": "Homebridge",
+    "username": "CD:22:3D:E3:CE:30",
+    "port": 51826,
+    "pin": "031-45-156"
+  },
+  "description": "Homebridge plugin for Nubicam",
+  "platforms": [
+    {
+      "platform" : "Nubicam",
+      "name" : "Nubicam",
+      "username" : "username@test.com",
+      "password" : "123456"
+    }
+  ]
+}
