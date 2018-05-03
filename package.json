@@ -23,8 +23,7 @@
     "request": "^2.83.0",
     "ip": "^1.1.5",
     "wait-until": "^0.0.2",
-    "xml2js": "^0.4.19",
-    "net-keepalive": "^1.1.0"
+    "xml2js": "^0.4.19"
   },
   "devDependencies": {
     "homebridge": ">=0.4.33"
