@@ -16,6 +16,7 @@ const nubicam = function (log, config, api) {
 
     this.nubicamUsername = config.username;
     this.nubicamPassword = config.password;
+    this.enableAudio = config.enableAudio;
     this.cameraAccessories = [];
 
     if (!api || api.version < 2.1) {
@@ -44,7 +45,7 @@ nubicam.prototype = {
                         platform.log("Found %s cameras", cameras.length);
 
                         cameras.forEach(camera => {
-                            platform.cameraAccessories.push(new CameraAccessory(new ubiguardAPI.Camera(user, camera), platform.log, Accessory, hap));
+                            platform.cameraAccessories.push(new CameraAccessory(new ubiguardAPI.Camera(user, camera), platform.log, Accessory, hap, platform.enableAudio));
                         });
 
                         WaitUntil()
