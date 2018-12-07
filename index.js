@@ -49,7 +49,7 @@ nubicam.prototype = {
 
                         WaitUntil()
                             .interval(500)
-                            .times(20)
+                            .times(60)
                             .condition(function () {
                                 return platform.cameraAccessories.every(camera => camera.isInitialized);
                             })
