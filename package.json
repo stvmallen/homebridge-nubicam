@@ -20,10 +20,10 @@
     "homebridge": ">=0.2.0"
   },
   "dependencies": {
-    "request": "^2.83.0",
+    "request": "^2.88.0",
     "ip": "^1.1.5",
     "wait-until": "^0.0.2",
-    "xml2js": "^0.4.19"
+    "xml2js": "^0.4.23"
   },
   "devDependencies": {
     "homebridge": ">=0.4.33"
