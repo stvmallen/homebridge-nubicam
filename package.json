@@ -1,7 +1,7 @@
 {
   "name": "homebridge-nubicam",
   "description": "homebridge-plugin for Nubicam",
-  "version": "0.5.6",
+  "version": "0.5.7",
   "license": "MIT",
   "author": {
     "name": "esteban-mallen"
