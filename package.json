@@ -24,7 +24,7 @@
     "ip": "^1.1.5",
     "wait-until": "^0.0.2",
     "xml2js": "^0.4.23",
-    "ffmpeg-for-homebridge": "^0.0.3"
+    "ffmpeg-for-homebridge": "^0.0.4"
   },
   "devDependencies": {
     "homebridge": ">=0.4.33"
