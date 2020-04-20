@@ -59,7 +59,7 @@ nubicam.prototype = {
                                     platform.log.warn("Some cameras are not fully initialized");
                                 }
 
-                                platform.api.publishCameraAccessories("Nubicam", platform.cameraAccessories.map(camera => camera.getAccessory()));
+                                platform.api.publishCameraAccessories("homebridge-nubicam", platform.cameraAccessories.map(camera => camera.getAccessory()));
                             });
                     }).catch(reason => platform.log.error(reason));
             }).catch(reason => platform.log.error(reason));
