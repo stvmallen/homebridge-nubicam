@@ -62,3 +62,4 @@ typings/
 *.iml
 
 dist/
+package-lock.json
