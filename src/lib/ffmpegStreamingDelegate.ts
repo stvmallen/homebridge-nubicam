@@ -92,7 +92,7 @@ export class FfmpegStreamingDelegate implements CameraStreamingDelegate {
                 });
             })
             .catch(reason => {
-                this.log.error("Failed taking snapshot:", reason);
+                this.log.error("Failed taking snapshot:", reason.message);
                 callback(reason)
             });
     }
@@ -261,7 +261,7 @@ export class FfmpegStreamingDelegate implements CameraStreamingDelegate {
                         this.ongoingSessions[sessionId] = ffmpeg;
                     })
                     .catch(reason => {
-                        this.log.error("Failed streaming from camera:", reason);
+                        this.log.error("Failed streaming from camera:", reason.message);
                         callback(reason)
                     });
 
