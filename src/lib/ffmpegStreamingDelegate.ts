@@ -188,7 +188,7 @@ export class FfmpegStreamingDelegate implements CameraStreamingDelegate {
                     .then(videoSource => {
                         let ffmpegCommand = videoSource +
                             ' -map 0:v' +
-                            ' -vcodec ' + 'h264' +
+                            ' -vcodec ' + 'copy' +
                             ' -preset ultrafast' +
                             ' -pix_fmt yuv420p' +
                             ' -r ' + fps +
@@ -207,7 +207,7 @@ export class FfmpegStreamingDelegate implements CameraStreamingDelegate {
 
                         //Audio
                         ffmpegCommand += ' -map 0:a?' +
-                            ' -acodec ' + 'libfdk_aac' +
+                            ' -acodec ' + 'copy' +
                             ' -preset ultrafast' +
                             ' -profile:a aac_eld' +
                             ' -flags +global_header' +
