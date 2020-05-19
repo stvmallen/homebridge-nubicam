@@ -1,6 +1,7 @@
 import ip from "ip";
 import {ChildProcess, spawn} from "child_process";
 import {
+    AudioInfo,
     CameraController,
     CameraStreamingDelegate,
     HAP,
@@ -15,8 +16,7 @@ import {
     StreamRequestCallback,
     StreamRequestTypes,
     StreamSessionIdentifier,
-    VideoInfo,
-    AudioInfo
+    VideoInfo
 } from "homebridge";
 
 let pathToFfmpeg = require('ffmpeg-for-homebridge');
@@ -91,6 +91,10 @@ export class FfmpegStreamingDelegate implements CameraStreamingDelegate {
                     }
                 });
             })
+            .catch(reason => {
+                this.log.error("Failed taking snapshot:", reason);
+                callback(reason)
+            });
     }
 
     prepareStream(request: PrepareStreamRequest, callback: PrepareStreamCallback): void {
@@ -255,6 +259,10 @@ export class FfmpegStreamingDelegate implements CameraStreamingDelegate {
                         });
 
                         this.ongoingSessions[sessionId] = ffmpeg;
+                    })
+                    .catch(reason => {
+                        this.log.error("Failed streaming from camera:", reason);
+                        callback(reason)
                     });
 
                 delete this.pendingSessions[sessionId];
