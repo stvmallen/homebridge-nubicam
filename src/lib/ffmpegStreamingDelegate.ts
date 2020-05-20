@@ -296,6 +296,6 @@ export class FfmpegStreamingDelegate implements CameraStreamingDelegate {
 
         this.log.debug("Feed=", feed);
 
-        return "-vcodec copy -fflags +igndts -i " + (feed.rtsp ?? feed.rtmp);
+        return "-vcodec h264 -fflags +igndts -i " + (feed.rtsp ?? feed.rtmp);
     }
 }
