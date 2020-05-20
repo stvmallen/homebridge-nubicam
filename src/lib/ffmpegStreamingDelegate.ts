@@ -198,7 +198,7 @@ export class FfmpegStreamingDelegate implements CameraStreamingDelegate {
                             ' -r ' + fps +
                             ' -f rawvideo' +
                             ' -tune zerolatency' +
-                            ' -vf scale=' + width + ':' + height +
+                            //' -vf scale=' + width + ':' + height +
                             ' -b:v ' + maxBitrate + 'k' +
                             ' -bufsize ' + (2 * maxBitrate) + 'k' +
                             ' -maxrate ' + maxBitrate + 'k' +
