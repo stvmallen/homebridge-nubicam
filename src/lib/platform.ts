@@ -42,6 +42,9 @@ export class NubicamPlatform implements DynamicPlatformPlugin {
             .setCharacteristic(this.api.hap.Characteristic.Model, camera.modelid)
             .setCharacteristic(this.api.hap.Characteristic.SerialNumber, camera.cameraid);
 
+        accessory.addService(this.api.hap.Service.Microphone)
+            .getCharacteristic(this.api.hap.Characteristic.Mute);
+
         const streamingDelegate = new FfmpegStreamingDelegate(this.api.hap, () => this.nubicamUser.getCameraFeed(camera.cameraid), this.log);
         const options: CameraControllerOptions = {
             cameraStreamCount: 3,
