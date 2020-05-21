@@ -23,7 +23,7 @@
     "build": "rimraf ./dist && tsc"
   },
   "dependencies": {
-    "ffmpeg-for-homebridge": "0.0.4",
+    "ffmpeg-for-homebridge": "0.0.5",
     "ip": "^1.1.5",
     "request": "^2.88.2",
     "request-promise-native": "^1.0.8",
