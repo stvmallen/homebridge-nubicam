@@ -211,7 +211,7 @@ export class FfmpegStreamingDelegate implements CameraStreamingDelegate {
 
                         //Audio
                         ffmpegCommand += ' -map 0:a?' +
-                            ' -acodec ' + 'libfdk_aac' +
+                            ' -acodec ' + 'libopus' +
                             ' -preset ultrafast' +
                             ' -profile:a aac_eld' +
                             ' -flags +global_header' +
