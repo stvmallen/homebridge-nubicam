@@ -198,6 +198,7 @@ export class FfmpegStreamingDelegate implements CameraStreamingDelegate {
                             ' -r ' + fps +
                             ' -f rawvideo' +
                             ' -tune zerolatency' +
+                            ' -copytb 1' +
                             ' -vf scale=' + width + ':' + height +
                             ' -b:v ' + maxBitrate + 'k' +
                             ' -bufsize ' + (2 * maxBitrate) + 'k' +
@@ -215,6 +216,7 @@ export class FfmpegStreamingDelegate implements CameraStreamingDelegate {
                             ' -preset ultrafast' +
                             ' -profile:a aac_eld' +
                             ' -flags +global_header' +
+                            ' -copytb 1' +
                             ' -f null' +
                             ' -ar ' + audioBitrate + 'k' +
                             ' -b:a ' + audioBitrate + 'k' +
