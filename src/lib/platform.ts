@@ -13,6 +13,7 @@ export class NubicamPlatform implements DynamicPlatformPlugin {
 
     private nubicamUsername: string;
     private nubicamPassword: string;
+    private ignoreCameraIds: string[];
 
     private nubicamUser: NubicamUser;
 
@@ -24,6 +25,7 @@ export class NubicamPlatform implements DynamicPlatformPlugin {
 
         this.nubicamUsername = config.username;
         this.nubicamPassword = config.password;
+        this.ignoreCameraIds = config.ignoredCameraIds;
 
         this.nubicamUser = new NubicamUser(config.username, config.password);
 
@@ -100,6 +102,11 @@ export class NubicamPlatform implements DynamicPlatformPlugin {
     }
 
     private configureNewCamera(camera: NubicamCamera): void {
+        if (this.ignoreCameraIds.includes(camera.cameraid)) {
+            this.log.info("Skipping camera ", camera.cameraid)
+            return
+        }
+
         this.log.debug("NubicamCamera=", camera);
 
         const uuid = this.api.hap.uuid.generate(camera.cameraid);
