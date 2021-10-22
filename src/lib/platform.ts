@@ -27,8 +27,6 @@ export class NubicamPlatform implements DynamicPlatformPlugin {
         this.nubicamPassword = config.password;
         this.ignoreCameraIds = config.ignoredCameraIds;
 
-        this.log("Ignored cameras: ", this.ignoreCameraIds)
-
         this.nubicamUser = new NubicamUser(config.username, config.password);
 
         api.on(APIEvent.DID_FINISH_LAUNCHING, this.discoverNewCameras.bind(this));
@@ -105,7 +103,7 @@ export class NubicamPlatform implements DynamicPlatformPlugin {
 
     private configureNewCamera(camera: NubicamCamera): void {
         if (this.ignoreCameraIds.includes(camera.cameraid)) {
-            this.log("Skipping camera ", camera.cameraid)
+            this.log("Skipping camera %s", camera.cameraid)
             return
         }
 
