@@ -27,6 +27,8 @@ export class NubicamPlatform implements DynamicPlatformPlugin {
         this.nubicamPassword = config.password;
         this.ignoreCameraIds = config.ignoredCameraIds;
 
+        this.log.info("Ignored cameras: ", this.ignoreCameraIds)
+
         this.nubicamUser = new NubicamUser(config.username, config.password);
 
         api.on(APIEvent.DID_FINISH_LAUNCHING, this.discoverNewCameras.bind(this));
